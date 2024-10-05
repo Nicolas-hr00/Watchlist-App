@@ -16,3 +16,5 @@ CompanyEntity
 Data layer can access the domain Layer 
 
 *StockDao //Function to interact with the database, insert company listings
+
+*On CSV file we create an abstraction 
