@@ -18,3 +18,21 @@ Data layer can access the domain Layer
 *StockDao //Function to interact with the database, insert company listings
 
 *On CSV file we create an abstraction 
+
+
+
+
+
+
+ComapnyListingsState 
+    *//everything is relevant for the UI
+
+CompanyListingsViewModel
+    *//helps to call our data layer functions and taking this data from the repository and map the data to the UI
+
+Company Item
+    *//UI ITEM
+
+
+Dependency injection (GIVING AN OBJECT its instance variables)
+    *constructor injection we need (THIS IS A CONCEPT)

@@ -2,9 +2,9 @@ package com.example.watchlistaplication.data.repository
 
 import coil.network.HttpException
 import com.example.watchlistaplication.data.csv.CSVParser
-import com.example.watchlistaplication.data.csv.CompanyListingsParser
 import com.example.watchlistaplication.data.local.StockDatabase
 import com.example.watchlistaplication.data.mapper.toCompanyListing
+import com.example.watchlistaplication.data.mapper.toCompanyListingEntity
 import com.example.watchlistaplication.data.remote.StockApi
 import com.example.watchlistaplication.domain.model.CompanyListing
 import com.example.watchlistaplication.domain.repository.StockRepository
@@ -31,14 +31,14 @@ class StockRepostoryImpl @Inject constructor( //this is the one that access the 
         return flow { //this flow throws anything we throw to the emit function
             emit(Resource.Loading(true))
             val localListings = dao.searchCompanyListing(query)
-            emit(Resource.Sucess( //job the repository is to take the specific entities and take  the DAO an dmap the mto the domain level objects and use it for the presentation
+            emit(Resource.Success( //job the repository is to take the specific entities and take  the DAO an dmap the mto the domain level objects and use it for the presentation
                 data = localListings.map {it.toCompanyListing()}
             ))
 
             val isDBEmpty = localListings.isEmpty() && query.isBlank()
             val shouldJustLoadFromCache = !isDBEmpty && !fetchFromRemote // we need to check is the DB populated already, if it is already populated we can just reload from the cash
             if (shouldJustLoadFromCache) {
-                emit (Resource.Loading(false))
+                emit(Resource.Loading(false))
                 return@flow
             }
             val remoteListings = try {
@@ -55,7 +55,22 @@ class StockRepostoryImpl @Inject constructor( //this is the one that access the 
                 emit(Resource.Error("Counl't load data"))
                 null
             }
+
+
+            remoteListings?.let {listings->
+                emit(Resource.Success(listings))
+                emit(Resource.Loading(false))
+                dao.clearCompanyListings()
+                dao.insertCompanyListings(
+                    listings.map { it.toCompanyListingEntity() }
+                )
+                emit(Resource.Success(
+                    data= dao
+                        .searchCompanyListing("")
+                        .map { it.toCompanyListing()}
+                ))
+                emit(Resource.Loading(false))
+            }
         }
     }
-
 }
