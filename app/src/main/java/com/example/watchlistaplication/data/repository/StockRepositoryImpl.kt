@@ -17,9 +17,9 @@ import javax.inject.Singleton
 //we should only have one singleton
 @Singleton
 class StockRepostoryImpl @Inject constructor( //this is the one that access the API
-    val api: StockApi,
-    val db: StockDatabase,
-    val companyListingsParser: CSVParser<CompanyListing> // we depend on the inferfase if we use a different VSC, i wont break.
+    private val api: StockApi,
+    private val db: StockDatabase,
+    private val companyListingsParser: CSVParser<CompanyListing> // we depend on the inferfase if we use a different VSC, i wont break.
 ): StockRepository{
 
     private val dao = db.dao

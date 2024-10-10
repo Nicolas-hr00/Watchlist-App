@@ -36,3 +36,4 @@ Company Item
 
 Dependency injection (GIVING AN OBJECT its instance variables)
     *constructor injection we need (THIS IS A CONCEPT)
+    STOCK APLICATION a class, also added on the manifest. 

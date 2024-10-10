@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp") version "1.9.0-1.0.11"
     id("org.jetbrains.kotlin.kapt") // Add the KAPT plugin
+    kotlin("jvm") version "1.9.10"  // Use the latest stable version
+
 }
 
 android {
@@ -73,7 +75,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("com.google.accompanist:accompanist-flowlayout:0.17.0")
     implementation("androidx.paging:paging-compose:1.0.0-alpha14")
-    implementation("androidx.activity:activity-compose:1.6.0-alpha01")
+    implementation("androidx.activity:activity-compose:1.5.1")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha")
 
     // Compose Nav Destinations
@@ -84,10 +86,9 @@ dependencies {
     implementation("io.coil-kt:coil-compose:1.4.0")
 
     // Dagger - Hilt for Dependency Injection
-//    implementation("com.google.dagger:hilt-android:2.40.5")
-//    kapt("com.google.dagger:hilt-android-compiler:2.40.5") // KAPT for Dagger-Hilt
-//    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
-//    kapt("androidx.hilt:hilt-compiler:1.0.0") // KAPT for Hilt
+
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+
 //    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation("com.google.dagger:hilt-android:2.40.5")
     kapt("com.google.dagger:hilt-android-compiler:2.40.5") // KAPT for Dagger-Hilt
